@@ -12,4 +12,3 @@ enable_testing()
 add_subdirectory(tests)
 
 add_executable(bug_heap bug_heap.cpp)
-add_executable(facto facto.cpp)
