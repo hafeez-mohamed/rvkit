@@ -24,6 +24,7 @@ jobs:
         with:
           path: ~/.cache/ccache
           key: ccache-${{ matrix.compiler.cc }}-${{ matrix.preset }}-${{ github.run_id }}
+          restore-keys: ccache-${{ matrix.compiler.cc }}-${{ matrix.preset }}-
       - run: ccache -z
       - run: cmake --preset ${{ matrix.preset }}
       - run: cmake --build --preset ${{ matrix.preset }}
