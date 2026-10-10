@@ -19,6 +19,13 @@ jobs:
     steps:
       - uses: actions/checkout@v7
       - run: pipx install cmake && pipx install ninja
+      - run: sudo apt-get update && sudo apt-get install -y ccache
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/ccache
+          key: ccache-${{ matrix.compiler.cc }}-${{ matrix.preset }}-${{ github.run_id }}
+      - run: ccache -z
       - run: cmake --preset ${{ matrix.preset }}
       - run: cmake --build --preset ${{ matrix.preset }}
       - run: ctest --preset ${{ matrix.preset }} --output-on-failure
+      - run: ccache -s

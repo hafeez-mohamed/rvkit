@@ -5,7 +5,8 @@
     {
       "name": "base",
       "hidden": true,
-      "binaryDir": "build/${presetName}"
+      "binaryDir": "build/${presetName}",
+      "cacheVariables": { "CMAKE_CXX_COMPILER_LAUNCHER": "ccache" }
     },
     {
       "name": "debug",
@@ -24,15 +25,25 @@
       "name": "release",
       "inherits": "base",
       "cacheVariables": { "CMAKE_BUILD_TYPE": "Release" }
+    },
+    {
+      "name": "coverage",
+      "inherits": "base",
+      "cacheVariables": {
+        "CMAKE_BUILD_TYPE": "Debug",
+        "CMAKE_CXX_FLAGS": "--coverage"
+      }
     }
   ],
   "buildPresets": [
     { "name": "debug",   "configurePreset": "debug" },
     { "name": "asan",    "configurePreset": "asan" },
-    { "name": "release", "configurePreset": "release" }
+    { "name": "release", "configurePreset": "release" },
+    { "name": "coverage", "configurePreset": "coverage" }
   ],
     "testPresets": [
     { "name": "debug", "configurePreset": "debug", "output": { "outputOnFailure": true } },
-    { "name": "asan",  "configurePreset": "asan",  "output": { "outputOnFailure": true } }
+    { "name": "asan",  "configurePreset": "asan",  "output": { "outputOnFailure": true } },
+    { "name": "coverage", "configurePreset": "coverage", "output": {"outputOnFailure": true} }
   ]
 }
